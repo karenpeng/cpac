@@ -8,32 +8,36 @@
 import java.util.Scanner;
 import java.util.*;
 
-public class Calculator {
+public class SimpleCalculator {
 
-  boolean init = false;
-  char mode = 'n';
-  float result = 0.f;
+ float result = 0.f;
+ char mode = 'n';
 
-  public void main(String[] args){
+  public static void main(String[] args){
 
+    boolean init = false;
     Scanner reader = new Scanner(System.in);
+    ArrayList arr = new ArrayList();
 
     if(!init){
       System.out.println("Give me a number");
       init = true;
       String input0 = reader.next();
-      process(input0);
+      //process(input0);
+      System.out.println(result);
     }
 
     System.out.println("Give me an operator");
     String input1 = reader.next();
-    process(input1);
+    System.out.println(result);
+    //process(input1);
 
     System.out.println("Give me a number");
     String input2 = reader.next();
-    process(input2);
+    //process(input2);
 
-    System.out.println("The result is "+ result);
+    System.out.println(result);
+
   }
 
   public boolean isDigit(char c){
@@ -43,7 +47,16 @@ public class Calculator {
       return false;
     }
   }
+/*
+  public void scan(String input){
+    for(int i = 0; i< input.length(); i++){
+      if(!isFloat(input.charAt(i))){
 
+      }
+      arr.add(input.charAt(i));
+    }
+  }
+*/
   public void process(String input){
 
     if(input.length() == 1){
@@ -60,13 +73,25 @@ public class Calculator {
         System.out.println("Unknown operator "+ c);
       }
     }else{
+      boolean isNagetive = false;
+      boolean isFloat = true;
       for(int i = 0; i < input.length(); i++){
+        if(input.charAt(0) == '-'){
+          isNagetive = true;
+          i++;
+        }
         char c = input.charAt(i);
         if(!isDigit(c)){
           System.out.println("Unknown operator "+ c);
+          isFloat = false;
           break;
-        }else{
-
+        }
+      }
+      float f;
+      if(isFloat){
+        f = Float.parseFloat(input);
+        if(isNagetive){
+          f = -f;
         }
       }
       if(mode == 'n' || mode =='+') {result += f;}
@@ -79,7 +104,7 @@ public class Calculator {
           result /= f;
         }
       }
-     }
+    }
   }
 
 }
