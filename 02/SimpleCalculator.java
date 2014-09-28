@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 /*
 Version 1, looping through the string of input to determine if it is number / operator
 */
+
 // public class SimpleCalculator {
 
 //  static boolean init = false;
@@ -181,20 +182,129 @@ Version 1, looping through the string of input to determine if it is number / op
 Version 2, using regular expression
 */
 
+// public class SimpleCalculator {
+
+//  static boolean init = false;
+//  static Scanner reader = new Scanner(System.in);
+//  static float result = 0.f;
+//  static char mode = 'n';
+
+//  //for a number, the first char could be '+' or '-'.
+//  //a number could be '.09', or '09.', but not just'.'
+//  //^[-\\+]?(\\d+\\.?\\d*)|(\\d*\\.?\\d+)$ is not correct b/c it will match '0..', which is not a float
+//  static String numberPattern = "^[-\\+]?(\\d+\\.?\\d*)$|^[-\\+]?(\\d*\\.?\\d+)$";
+//  static Pattern np = Pattern.compile(numberPattern);
+
+//  static String operatorPattern = "[\\+\\-\\*/]";
+//  static Pattern op = Pattern.compile(operatorPattern);
+
+//   public static void main(String[] args){
+//     askForSomething();
+//   }
+
+//   public static void askForSomething(){
+//     if(!init){
+//       askForNumber();
+//       init = true;
+//     }
+
+//     askForOperator();
+
+//     askForNumber();
+
+//     askForSomething();
+//   }
+
+//   public static void askForOperator(){
+//     System.out.println("Give me an operator:");
+//     String input = reader.next();
+
+//     if(input.length()==1){
+//       if(isSpecialCommand(input.charAt(0))){
+//         //check if it's 'c' or 'x'
+//         return;
+//       };
+//     }
+
+//     Matcher m = op.matcher(input);
+//     if(m.find()){
+//       //if it mathces the operator pattern, it's an operator, change the mode
+//       mode = input.charAt(0);
+//     }else{
+//       //does not match means misinput
+//       System.out.println("Unknown operator "+ input);
+//       System.out.print("Try again. ");
+//       askForOperator();
+//     }
+//   }
+
+//  public static void askForNumber(){
+//     System.out.println("Give me an number:");
+//     String input = reader.next();
+
+//     if(input.length()==1){
+//       if(isSpecialCommand(input.charAt(0))){
+//         return;
+//       };
+//     }
+
+//     float f = 0.f;
+
+//     Matcher m = np.matcher(input);
+//     if(m.find()){
+//       //it's a number
+//       f = Float.parseFloat(input);
+//     }else{
+//       //misinput
+//       System.out.println("Unknown number "+ input);
+//       System.out.print("Try again. ");
+//       askForNumber();
+//       return;
+//     }
+
+//     if(mode == 'n' || mode =='+') {result += f;}
+//     if(mode == '-') {result -= f;}
+//     if(mode == '*') {result *= f;}
+//     if(mode == '/') {
+//       if(f == 0.f){
+//         System.out.println("Division by zero!");
+//         return;
+//       }else {
+//         result /= f;
+//       }
+//     }
+
+//     if(init){
+//      System.out.println("The result is "+result);
+//     }
+
+//   }
+
+//   public static boolean isSpecialCommand(char c){
+//     if(c == 'x'){
+//      System.exit(0);
+//      return true;
+//     }else if(c == 'c'){
+//       result = 0.f;
+//       return true;
+//     }else{
+//       return false;
+//     }
+//   }
+
+// }
+
+
+/*
+Version 3, simply let the function Float.parseFloat(String a) to tell me whether it's a float or not :)
+*/
+
 public class SimpleCalculator {
 
  static boolean init = false;
  static Scanner reader = new Scanner(System.in);
  static float result = 0.f;
  static char mode = 'n';
-
- //for a number, the first char could be '+' or '-'.
- //a number could be '.09', or '09.', but not just'.'
- static String numberPattern = "^[-\\+]?(\\d+\\.?\\d*)$|^[-\\+]?(\\d*\\.?\\d+)$";
- static Pattern np = Pattern.compile(numberPattern);
-
- static String operatorPattern = "[\\+\\-\\*/]";
- static Pattern op = Pattern.compile(operatorPattern);
 
   public static void main(String[] args){
     askForSomething();
@@ -205,11 +315,8 @@ public class SimpleCalculator {
       askForNumber();
       init = true;
     }
-
     askForOperator();
-
     askForNumber();
-
     askForSomething();
   }
 
@@ -218,25 +325,27 @@ public class SimpleCalculator {
     String input = reader.next();
 
     if(input.length()==1){
-      if(isSpecialCommand(input.charAt(0))){
-        //check if it's 'c' or 'x'
+      char c = input.charAt(0);
+      if(isSpecialCommand(c)){
         return;
       };
-    }
-
-    Matcher m = op.matcher(input);
-    if(m.find()){
-      //if it mathces the operator pattern, it's an operator, change the mode
-      mode = input.charAt(0);
+      //single quot is for char, double quot is for String
+      if(c == '+' || c == '-' || c == '*' || c == '/'){
+        mode = c;
+      }else{
+        System.out.println("Unknown operator "+ input);
+        System.out.print("Try again. ");
+        askForOperator();
+        return;
+      }
     }else{
-      //does not match means misinput
       System.out.println("Unknown operator "+ input);
       System.out.print("Try again. ");
       askForOperator();
     }
   }
 
- public static void askForNumber(){
+  public static void askForNumber(){
     System.out.println("Give me an number:");
     String input = reader.next();
 
@@ -247,14 +356,11 @@ public class SimpleCalculator {
     }
 
     float f = 0.f;
-
-    Matcher m = np.matcher(input);
-    if(m.find()){
-      //it's a number
+    try{
       f = Float.parseFloat(input);
-    }else{
-      //misinput
-      System.out.println("Unknown number "+ input);
+    }
+    catch(Exception e){
+      System.out.println("Unknown operator "+ input);
       System.out.print("Try again. ");
       askForNumber();
       return;
@@ -275,8 +381,8 @@ public class SimpleCalculator {
     if(init){
      System.out.println("The result is "+result);
     }
-
   }
+
 
   public static boolean isSpecialCommand(char c){
     if(c == 'x'){
