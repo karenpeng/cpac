@@ -49,37 +49,40 @@ public class SimpleCalculator {
         System.out.println("Unknown number "+ c);
         System.out.print("Try again. ");
         askForNumber();
+        return;
       }
 
     }else{
       int pointCount = 0;
       for(int i = 0; i < input.length(); i++){
         if(i == 0 && input.charAt(i) == '-'){
-          i++;
+          continue;
         }
         char c = input.charAt(i);
         if(c == '.'){
           pointCount ++;
+          continue;
         }
-        if((!isDigit(c) && c != '.') || pointCount > 1){
+        else if(!isDigit(c) || pointCount > 1){
           System.out.println("Unknown number "+ c);
           System.out.print("Try again. ");
           askForNumber();
+          return;
         }
       }
       f = Float.parseFloat(input);
     }
 
-      if(mode == 'n' || mode =='+') {result += f;}
-      if(mode == '-') {result -= f;}
-      if(mode == '*') {result *= f;}
-      if(mode == '/') {
-        if(f == 0.f){
-          System.out.println("Division by zero.");
-        }else {
-          result /= f;
-        }
+    if(mode == 'n' || mode =='+') {result += f;}
+    if(mode == '-') {result -= f;}
+    if(mode == '*') {result *= f;}
+    if(mode == '/') {
+      if(f == 0.f){
+        System.out.println("Division by zero!");
+      }else {
+        result /= f;
       }
+    }
 
   }
 
@@ -97,11 +100,13 @@ public class SimpleCalculator {
       System.out.println("Unknown operator "+ input);
       System.out.print("Try again, ");
       askForOperator();
+      return;
      }
     }else{
       System.out.println("Unknown operator "+ input);
       System.out.print("Try again, ");
       askForOperator();
+      return;
     }
   }
 
@@ -122,10 +127,10 @@ public class SimpleCalculator {
   }
 
   public static boolean isSpecialCommand(char c){
-    if(c == 'c'){
+    if(c == 'x'){
      System.exit(0);
      return true;
-    }else if(c == 'x'){
+    }else if(c == 'c'){
       result = 0.f;
       return true;
     }else{
