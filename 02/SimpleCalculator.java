@@ -7,10 +7,10 @@
 
 /*
 I wrote three solutions to solve this problem because
-after I wrote one, I found a simplier way, and I wrote another, and then found another simplier way
+I found a simplier way after I wrote one, and I wrote another, and found another simplier way after again
 
 The algorithm is a little bit different than the assignment description because I want the user to know the error immediately
-In all the below code, I will keep asking for a number / operator if the user types in an unknown input
+In all the below code, I will keep asking for a number / operator if the user types in a misinput
 */
 
 import java.util.Scanner;
@@ -178,6 +178,8 @@ Version 1, looping through the string of input to determine if it is number / op
 // }
 
 
+
+
 /*
 Version 2, using regular expression
 */
@@ -239,7 +241,7 @@ Version 2, using regular expression
 //   }
 
 //  public static void askForNumber(){
-//     System.out.println("Give me an number:");
+//     System.out.println("Give me a number:");
 //     String input = reader.next();
 
 //     if(input.length()==1){
@@ -295,6 +297,8 @@ Version 2, using regular expression
 // }
 
 
+
+
 /*
 Version 3, simply let the function Float.parseFloat(String a) to tell me whether it's a float or not :)
 */
@@ -346,7 +350,7 @@ public class SimpleCalculator {
   }
 
   public static void askForNumber(){
-    System.out.println("Give me an number:");
+    System.out.println("Give me a number:");
     String input = reader.next();
 
     if(input.length()==1){
