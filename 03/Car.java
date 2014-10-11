@@ -38,14 +38,19 @@ public class Car{
   public static void main(String[] args){
     init();
     //show user what the initiatate values are
-    report();
+    report(color, ignition, positionX, positionY);
     //then ask for change
     askForSomething();
   }
 
   public static void askForSomething(){
     System.out.println("What would you like to do?");
-    System.out.println("1: turn the ignition on/off");
+    //ask for ignition decision based on the current ignition state
+    if(!ignition){
+      System.out.println("1: turn the ignition on");
+    }else{
+      System.out.println("1: turn the ignition off");
+    }
     System.out.println("2: change the position of car");
     System.out.println("Q: quit this program");
 
@@ -61,22 +66,24 @@ public class Car{
         System.exit(0);
       }else{
         System.out.print("I'm not sure what you mean. ");
+        //ask again if misinput
         askForSomething();
         return;
       }
     }else{
       System.out.print("I'm not sure what you mean. ");
+      //ask again if misinput
       askForSomething();
       return;
     }
-    //show user the change result
-    report();
-    //then ask for change again
+    //everything fine, then ask for change again
     askForSomething();
   }
 
   public static void changeIgnition(){
     ignition = !ignition;
+    //show user the change result
+    report(color, ignition, positionX, positionY);
   }
 
   public static void changePosition(){
@@ -93,22 +100,27 @@ public class Car{
       }else{
         System.out.print("I'm not sure what you mean. ");
         changePosition();
+        return;
       }
     }else{
       System.out.print("I'm not sure what you mean. ");
       changePosition();
+      return;
     }
-
   }
 
   public static void askForHorizontalPosition( ){
      System.out.println("How far to move up?");
      String input = reader.next();
-     int n = 0;
+     int n;
      try{
       n = Integer.parseInt(input);
+      //get the positionY from a method
       positionY = position(ignition, positionY, n);
+      //show user the change result
+      report(color, ignition, positionX, positionY);
      }catch(Exception e){
+      //if it's not an integer, ask again
       System.out.print("I'm not sure what you mean. ");
       askForHorizontalPosition();
      }
@@ -117,11 +129,15 @@ public class Car{
   public static void askForVerticalPosition(){
     System.out.println("How far to move left?");
     String input = reader.next();
-    int n = 0;
+    int n;
     try{
       n = Integer.parseInt(input);
+      //get the positionX from a method
       positionX = position(ignition, positionX, n);
+      //show user the change result
+      report(color, ignition, positionX, positionY);
     }catch(Exception e){
+      //if it's not an integer, ask again
       System.out.print("I'm not sure what you mean. ");
       askForVerticalPosition();
     }
@@ -129,17 +145,17 @@ public class Car{
 
   public static int position(boolean ignition, int position, int number){
     if(!ignition){
-      System.out.println("You have to ignite the car before moving it");
+      System.out.println("You have to ignite the car before moving it!");
       return position;
-    }else if(position - number < 0){
-      System.out.println("Oops, the car can't be moved off the 20 by 20 grid");
+    }else if(position - number < 0 || position - number >= 20 ){
+      System.out.println("Oops, the car can't be moved off the 20 by 20 grid!");
       return position;
     }else{
       return position - number;
     }
   }
 
-  public static void report(){
+  public static void report(char color, boolean ignition, int positionX, int positionY){
     System.out.println("Car Information");
     //report color
     switch(color){
@@ -169,7 +185,7 @@ public class Car{
     System.out.println("Location: ("+ positionX+", "+positionY+")");
     for(int i = 0; i< 20; i++){
       for(int j = 0; j< 20; j++){
-        if(i == positionY-1 && j == positionX-1){
+        if(i == positionY && j == positionX){
           if(j == 19){
             System.out.println(color);
           }else{
