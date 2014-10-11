@@ -364,24 +364,33 @@ public class SimpleCalculator {
       f = Float.parseFloat(input);
     }
     catch(Exception e){
-      System.out.println("Unknown operator "+ input);
+      System.out.println("Unknown number "+ input);
       System.out.print("Try again. ");
       askForNumber();
       return;
     }
 
-    if(mode == 'n' || mode =='+') {result += f;}
-    if(mode == '-') {result -= f;}
-    if(mode == '*') {result *= f;}
-    if(mode == '/') {
-      if(f == 0.f){
-        System.out.println("Division by zero!");
-        return;
-      }else {
-        result /= f;
-      }
+    switch(mode){
+      case '+':
+        result += f;
+        break;
+      case '-':
+        result -= f;
+        break;
+      case '*':
+        result *= f;
+      case '/':
+        if(f == 0.0f){
+          System.out.println("Division by zero!");
+          return;
+        }else{
+          result /= f;
+        }
+        break;
+      default:
+        result += f;
+      break;
     }
-
     if(init){
      System.out.println("The result is "+result);
     }
