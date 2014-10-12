@@ -7,6 +7,11 @@ public class Car{
   static int positionX;
   static int positionY;
 
+  public static int positionRandomizer(){
+    //return value between 1 to 20
+    return (int)Math.floor(Math.random()*20+1);
+  }
+
   public static char colorRandomizer(){
     double colorRandom = Math.random();
     if(colorRandom < 0.2){
@@ -21,10 +26,6 @@ public class Car{
     }else{
       return 'S';
     }
-  }
-
-  public static int positionRandomizer(){
-    return (int)Math.floor(Math.random()*20);
   }
 
   //initiate ignition, color and position. It only runs once
@@ -57,9 +58,10 @@ public class Car{
     String input = reader.next();
     if(input.length() == 1){
       if(input.charAt(0) == '1'){
-        changeIgnition();
+        ignition = changeIgnition(ignition);
       }
       else if(input.charAt(0) == '2'){
+        //do something for position
         changePosition();
       }
       else if(input.charAt(0) == 'Q'){
@@ -76,78 +78,67 @@ public class Car{
       askForSomething();
       return;
     }
+    //show user the change result
+    report(color, ignition, positionX, positionY);
     //everything fine, then ask for change again
     askForSomething();
   }
 
-  public static void changeIgnition(){
-    ignition = !ignition;
-    //show user the change result
-    report(color, ignition, positionX, positionY);
+  public static boolean changeIgnition(boolean ignition){
+    return !ignition;
   }
 
+  //this function is for asking for H / W direction to move the car
   public static void changePosition(){
     System.out.println("In which direction would you like to move the car?");
     System.out.println("H: horizontal");
-    System.out.println("W: vertical");
+    System.out.println("V: vertical");
 
     String input = reader.next();
     if(input.length() == 1){
-      if(input.charAt(0) == 'H'){
-        askForHorizontalPosition();
-      }else if(input.charAt(0) == 'W'){
-        askForVerticalPosition();
+      if(input.charAt(0) == 'H' || input.charAt(0) == 'h'){
+        //then ask how far to move and set the positionX
+        positionX = askForPosition(positionX, "left");
+      }else if(input.charAt(0) == 'V' || input.charAt(0) == 'v'){
+        //then ask how far to move and set the positionY
+        positionY = askForPosition(positionY, "up");
       }else{
         System.out.print("I'm not sure what you mean. ");
+        //ask again for misinput
         changePosition();
         return;
       }
     }else{
+      //ask again for misinput
       System.out.print("I'm not sure what you mean. ");
       changePosition();
       return;
     }
   }
 
-  public static void askForHorizontalPosition( ){
-     System.out.println("How far to move up?");
+  //this function is for asking fo how much to move
+  public static int askForPosition(int oldPosition, String direction){
+     System.out.println("How far to move "+ direction +"?");
      String input = reader.next();
      int n;
      try{
       n = Integer.parseInt(input);
-      //get the positionY from a method
-      positionY = position(ignition, positionY, n);
-      //show user the change result
-      report(color, ignition, positionX, positionY);
+      //set the position from a method
+      return position(ignition, oldPosition, n);
      }catch(Exception e){
       //if it's not an integer, ask again
       System.out.print("I'm not sure what you mean. ");
-      askForHorizontalPosition();
+      return askForPosition(oldPosition, direction);
      }
   }
 
-  public static void askForVerticalPosition(){
-    System.out.println("How far to move left?");
-    String input = reader.next();
-    int n;
-    try{
-      n = Integer.parseInt(input);
-      //get the positionX from a method
-      positionX = position(ignition, positionX, n);
-      //show user the change result
-      report(color, ignition, positionX, positionY);
-    }catch(Exception e){
-      //if it's not an integer, ask again
-      System.out.print("I'm not sure what you mean. ");
-      askForVerticalPosition();
-    }
-  }
-
+  //this function returns the position after change
   public static int position(boolean ignition, int position, int number){
     if(!ignition){
       System.out.println("You have to ignite the car before moving it!");
       return position;
-    }else if(position - number < 0 || position - number >= 20 ){
+      //the gird index is 0 - 19, but position is 1 - 20, so need to minus one
+    }else if(position - 1 - number < 0 || position - 1 - number > 19 ){
       System.out.println("Oops, the car can't be moved off the 20 by 20 grid!");
       return position;
     }else{
@@ -183,9 +174,10 @@ public class Car{
     }
     //report location
     System.out.println("Location: ("+ positionX+", "+positionY+")");
-    for(int i = 0; i< 20; i++){
-      for(int j = 0; j< 20; j++){
-        if(i == positionY && j == positionX){
+    for(int i = 0; i < 20; i++){
+      for(int j = 0; j < 20; j++){
+        //the gird index is 0 - 19, but position is 1 - 20, so need to minus one
+        if(i == positionY - 1 && j == positionX - 1){
           if(j == 19){
             System.out.println(color);
           }else{
