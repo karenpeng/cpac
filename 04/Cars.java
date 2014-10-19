@@ -55,22 +55,25 @@ public class Cars{
   public static void askForSomething(){
     //ask which car is about to change
     askForCarIndex();
+    //show user the chosen car status
+    report(colors[currentIndex], ignitions[currentIndex], positionXs[currentIndex], positionYs[currentIndex], currentIndex);
     //ask for how to change it
     askForCarChanging();
     //show user the change result
-    report(colors[currentIndex], ignitions[currentIndex], positionXs[currentIndex], positionYs[currentIndex]);
+    report(colors[currentIndex], ignitions[currentIndex], positionXs[currentIndex], positionYs[currentIndex], currentIndex);
     //everything fine, then ask for change again
     askForSomething();
   }
 
   public static void askForCarIndex(){
-    System.out.println("Which car would you like to use next(1-10)?");
+    System.out.println("Which car would you like to use(1-10)?");
     String input = reader.next();
     try{
       //see if the input is an integer from 1 to 10
       int n = Integer.parseInt(input);
       if(n > 0 && n < 11){
-        currentIndex = n;
+        //index is 0-9 while the user inputs 1-10
+        currentIndex = n - 1;
       }else{
         System.out.print("Oops, can't find the car you want.");
         askForCarIndex();
@@ -150,7 +153,8 @@ public static void askForCarChanging(){
     }
   }
 
-  //this function is for asking fo how much to move
+  //this function is for asking fo how much to move,
+  //and pass how far to move to the position function to return the position after changes
   public static int askForPosition(int oldPosition, String direction){
      System.out.println("How far to move "+ direction +"?");
      String input = reader.next();
@@ -179,8 +183,9 @@ public static void askForCarChanging(){
     }
   }
 
-  public static void report(char color, boolean ignition, int positionX, int positionY){
-    System.out.println("Car Information");
+  public static void report(char color, boolean ignition, int positionX, int positionY, int index){
+    //also showing which car is chosen
+    System.out.println("#" +(index+1)+ " Car Status:");
     //report color
     switch(color){
       case 'R':
