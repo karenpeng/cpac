@@ -9,7 +9,7 @@ public class Test{
     pyramid(test());
     System.out.println(sum);
     int[] a = {
-      1,2,3
+      1,2,3,8,9,11
     };
     int [] b = {
       2,3,5,6
@@ -35,37 +35,26 @@ public class Test{
 
   public static ArrayList<Integer> append (int [] a , int [] b){
   ArrayList<Integer> result = new ArrayList<Integer>();
-    for(int i=0; i< a.length; i++){
-      int aItem = a[i];
-      boolean isDuplicate = false;
-      for(int j=0; j<b.length; j++){
-        int bItem = b[j];
-        if(aItem == bItem){
-          isDuplicate = true;
-          break;
-        }
-      }
-      if(!isDuplicate){
-        result.add(aItem);
+
+  for(int i=0; i<a.length; i++){
+    result.add(a[i]);
+  }
+
+  for(int i=0; i< b.length; i++){
+    int bItem = b[i];
+    boolean isDuplicate = false;
+    for(int j=0; j<a.length; j++){
+      int aItem = a[j];
+      if(bItem == aItem){
+        isDuplicate = true;
+        break;
       }
     }
-
-    for(int i=0; i< b.length; i++){
-      int bItem = b[i];
-      boolean isDuplicate = false;
-      for(int j=0; j<a.length; j++){
-        int aItem = a[j];
-        if(bItem == aItem){
-          isDuplicate = true;
-          break;
-        }
-      }
-      if(!isDuplicate){
-        result.add(bItem);
-      }
+    if(!isDuplicate){
+      result.add(bItem);
     }
-
-    return result;
+  }
+  return result;
 
   }
 
