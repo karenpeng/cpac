@@ -4,7 +4,6 @@ import java.util.ArrayList;
 public class Test{
   static double sum = 0.0;
   static int numRows = 10;
-  static ArrayList<Integer> result = new ArrayList<Integer>();
   public static void main(String args[]){
     //System.out.print(sum());
     pyramid(test());
@@ -15,9 +14,7 @@ public class Test{
     int [] b = {
       2,3,5,6
     };
-
-    append(a,b);
-    System.out.print(result);
+    System.out.print(append(a,b));
   }
   public static int sum(){
     return 100;
@@ -36,8 +33,8 @@ public class Test{
     return 10;
   }
 
-  public static void append (int [] a , int [] b){
-
+  public static ArrayList<Integer> append (int [] a , int [] b){
+  ArrayList<Integer> result = new ArrayList<Integer>();
     for(int i=0; i< a.length; i++){
       int aItem = a[i];
       boolean isDuplicate = false;
@@ -68,7 +65,7 @@ public class Test{
       }
     }
 
-    //return result;
+    return result;
 
   }
 
