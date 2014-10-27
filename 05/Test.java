@@ -1,20 +1,23 @@
 import java.util.*;
+import java.util.ArrayList;
 
 public class Test{
   static double sum = 0.0;
   static int numRows = 10;
+  static ArrayList<Integer> result = new ArrayList<Integer>();
   public static void main(String args[]){
     //System.out.print(sum());
     pyramid(test());
-    System.out.print(sum);
+    System.out.println(sum);
     int[] a = {
       1,2,3
     };
     int [] b = {
       2,3,5,6
     };
-    ArrayList<integer> result = new ArrayList<integer>();
+
     append(a,b);
+    System.out.print(result);
   }
   public static int sum(){
     return 100;
