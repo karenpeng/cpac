@@ -15,6 +15,10 @@ public class Test{
       2,3,5,6
     };
     System.out.print(append(a,b));
+   double v = 2.0/3;
+   System.out.println(v);
+   int fdg = (int)-0.5;
+   System.out.println(fdg);
   }
   public static int sum(){
     return 100;
