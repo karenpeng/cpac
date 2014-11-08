@@ -20,13 +20,14 @@ public class TestSmallInt{
     try{
       int i = Integer.parseInt(input);
       SmallInt test = new SmallInt(i);
-      System.out.println("binary: " + test.getBin());
-      System.out.println("hex   : " + test.getHex());
+      System.out.println("decimal: "+ test.getDec());
+      System.out.println("binary : " + test.getBin());
+      System.out.println("hex    : " + test.getHex());
       //keep asking user for input
       ask();
     }catch(Exception e){
       //if it is not an integer
-      System.out.print("Oooops are you sure this is an integer? ");
+      System.out.println("Oooops are you sure this is an integer? ");
       ask();
     }
   }

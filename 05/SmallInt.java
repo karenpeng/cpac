@@ -8,7 +8,7 @@
 public class SmallInt {
 
   private int value;
-  public static int MAXVALUE = 1000;
+  public static final int MAXVALUE = 1000;
 
   public SmallInt(int num){
     check(num);
