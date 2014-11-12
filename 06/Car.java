@@ -85,51 +85,53 @@ public class Car{
     return positionY;
   }
 
-  public void report(){
-    System.out.println("Car Information");
+  public String toString(){
+    String result = "";
+    result += "Car Information \n";
     //report color
     switch(getColor()){
       case 'R':
-        System.out.println("Color: red");
+        result += "Color: red \n";
         break;
       case 'G':
-        System.out.println("Color: green");
+        result += "Color: green \n";
         break;
       case 'B':
-        System.out.println("Color: blue");
+        result += "Color: blue \n";
         break;
       case 'W':
-        System.out.println("Color: white");
+        result += "Color: white \n";
         break;
       case 'S':
-        System.out.println("Color: silver");
+        result += "Color: silver \n";
         break;
     }
     //report ignition
     if(getIgnition()){
-      System.out.println("Ignition: on");
+      result += "Ignition: on \n";
     }else{
-      System.out.println("Ignition: off");
+      result += "Ignition: off \n";
     }
     //report location
-    System.out.println("Location: (" + getXPosition() + ", " + getYPosition() + ")");
+    result += ("Location: (" + getXPosition() + ", " + getYPosition() + ") \n");
     for(int i = 0; i < 20; i++){
       for(int j = 0; j < 20; j++){
         //the gird index is 0 - 19, but position is 1 - 20, so need to minus one
         if(i == getYPosition() - 1 && j == getXPosition() - 1){
           if(j == 19){
-            System.out.println(getColor());
+            result += getColor()+"\n";
           }else{
-            System.out.print(getColor()+" ");
+            result += getColor()+" ";
           }
         }
         else if(j == 19){
-          System.out.println("-");
+          result += "- \n";
         }else{
-          System.out.print("- ");
+          result += "- ";
         }
       }
     }
+    return result;
   }
 
 }

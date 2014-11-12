@@ -33,7 +33,7 @@ public class ParkingLot{
       if(n > 0 && n < 11){
         //index is 0-9 while the user inputs 1-10
         currentIndex = n - 1;
-        cars[currentIndex].report();
+        System.out.println(cars[currentIndex].toString());
       }else{
         System.out.print("Oops, can't find the car you want.");
         askForIndex();
@@ -60,7 +60,7 @@ public class ParkingLot{
     if(input.length() == 1){
       if(input.charAt(0) == '1'){
         c.changeIgnition();
-        c.report();
+        System.out.println(c.toString());
       }
       else if(input.charAt(0) == '2'){
         //do something for position
@@ -123,10 +123,10 @@ public class ParkingLot{
       //set the position from a method
         if(axis == 'x'){
           c.moveHorizontally(n);
-          c.report();
+          System.out.println(c.toString());
         }else{
           c.moveVertically(n);
-          c.report();
+          System.out.println(c.toString());
         }
      }catch(Exception e){
       //if it's not an integer, ask again
