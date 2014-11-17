@@ -1,7 +1,7 @@
 public class Cookie extends DessertItem{
 
   protected double number;
-  protected static double pricePerDoze;
+  protected double pricePerDoze;
 
   public Cookie(String _n, double _ppd, int _number){
     super(_n);

@@ -24,6 +24,7 @@ public class Checkout{
   }
 
   public int totalCost(){
+    //make sum into zero, and calculate price from every item
     sum = 0;
     for(int i = 0; i < amount; i ++){
       sum += dessertItems[i].getCost();
@@ -32,10 +33,12 @@ public class Checkout{
   }
 
   public int totalTax(){
-    return (int)(Math.round(sum * taxRate / 100));
+    //use the totalCost method
+    return (int)(Math.round(this.totalCost() * taxRate / 100));
   }
 
   public void clear(){
+    //clear the array
     for(DessertItem d : dessertItems){
       d = null;
     }
@@ -43,12 +46,14 @@ public class Checkout{
     sum = 0;
   }
 
+  //override the toString method in java object
+  //this is for printing the object itself out
   public String toString(){
     String result = "Thank You! \n";
 
     result += DessertShoppe.STORE_NAME + "\n";
 
-    result += "Purchase: ";
+    result += "Purchased: ";
 
     String totalPay = DessertShoppe.cents2dollarsAndCents( totalCost()+totalTax() );
     if(totalPay.length() > DessertShoppe.COST_WIDTH){
