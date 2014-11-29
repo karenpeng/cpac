@@ -10,6 +10,11 @@ public class Sundae extends IceCream{
     topCost = _cost1;
   }
 
+  public final String getName(){
+    //return both the icecream name and the topping name
+    return name + " " + topName;
+  }
+
   public int getCost(){
     //return the sum of the icecream and the topping
     return cost + topCost;
