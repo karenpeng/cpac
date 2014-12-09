@@ -19,6 +19,13 @@ public class Test{
    System.out.println(v);
    int fdg = (int)-0.5;
    System.out.println(fdg);
+
+
+  char c = '(';
+  String str = c + "";
+  System.out.println(str);
+  System.out.println(str == "(");
+
   }
   public static int sum(){
     return 100;
