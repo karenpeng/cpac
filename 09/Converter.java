@@ -10,6 +10,7 @@ public class Converter{
     ArrayListStack<Token> stack = new ArrayListStack<Token>();
     String output = "";
 
+    //format the input
     infixExpression = ExpressionParser.parse(input);
 
     //tokenize the infixexpressiong
@@ -37,32 +38,6 @@ public class Converter{
             }
 
             else{
-
-              //pop operators out of the stack and append to output,
-              //until the operator at the top of the stack is of lower precedence than the token you are reading
-
-              //that's how i implement 'util', iterate it until you should stop
-
-              // for(int i = stack.stack.size()-1; i >= 0; i-- ){
-              //   Token onTopOfStack = stack.top();
-              //   if(t.precedence < onTopOfStack.precedence){
-              //     stack.pop();
-              //     output.add(onTopOfStack);
-              //     //stack.add(t);
-              //     //break;
-              //   }else if(t.precedence == onTopOfStack.precedence){
-              //     stack.pop();
-              //     output.add(onTopOfStack);
-              //     stack.push(t);
-              //     //stack.add(onTopOfStack);
-              //     break;
-              //   }else{
-              //     //if operator on the stack has a lower precedence,
-              //     //append the one you are reading to the stack
-              //     stack.push(t);
-              //     break;
-              //   }
-              // }
 
               while(t.precedence < stack.top().precedence){
                 output += (stack.top().str+" ");
@@ -95,16 +70,6 @@ public class Converter{
         //(remember: postfix doesn't have parenthesis!)
         else{
 
-          // for(int i = 0 ; i < stack.stack.size()-1; i++ ){
-          //   Token onTopOfStack = stack.top();
-          //   if(!onTopOfStack.str.equals("(")){
-          //     stack.pop();
-          //     output.add(onTopOfStack);
-          //   }else{
-          //     stack.pop();
-          //     break;
-          //   }
-          // }
           while(!stack.top().str.equals("(")){
             output += (stack.top().str+" ");
             stack.pop();

@@ -10,7 +10,6 @@ public class Calculator{
 
     String line = null;          // string to be evaluated
     String more = null;          // used to stop or continue processing
-    float result;                  // result of evaluation
 
     do
     {
@@ -24,7 +23,7 @@ public class Calculator{
 
         String postfix = converter.toPostFix(line);
         System.out.println("converted to postfix: "+postfix);
-        result = evaluate(postfix);
+        double result = evaluate(postfix);
         System.out.println("answer is: "+result);
 
       }
@@ -46,33 +45,35 @@ public class Calculator{
     System.out.println("Program completed.");
   }
 
-  public static float evaluate(String _expression){
-    float result = 0.0f;
+  public static double evaluate(String _expression){
+    double result = 0.0;
 
     String[] expression = _expression.split(" ");
 
     ArrayListStack<String>stack = new ArrayListStack<String>();
     ArrayListStack<String>output = new ArrayListStack<String>();
 
+    //the left of the string is the top of the stack
     for(int i = expression.length - 1; i >= 0; i--){
       stack.push(expression[i]);
     }
 
     while(!stack.isEmpty()){
 
+      //put number into output
       while(!isOperator(stack.top())){
         output.push(stack.top());
         stack.pop();
       }
 
-
+      //until we hit an operator
       String operator = stack.top();
       stack.pop();
 
-      float operand2 = Float.parseFloat(output.top());
+      double operand2 = Double.parseDouble(output.top());
       output.pop();
 
-      float operand1 = Float.parseFloat(output.top());
+      double operand1 = Double.parseDouble(output.top());
       output.pop();
 
 
@@ -94,6 +95,7 @@ public class Calculator{
         throw new PostFixException("Illegal symbol: " + operator);
       }
 
+      //put the result back to the top of the output
       output.push(result+"");
 
     }
