@@ -24,39 +24,6 @@ public class Converter{
       if(t.operand){
         output += (t.str+" ");
 
-      }else if(t.operator){
-
-          //if the stack is empty
-          if(stack.isEmpty()){
-            stack.push(t);
-
-          }else{
-
-            //if there is an open parenthesis in the stack
-            if(stack.top().str.equals("(")){
-              stack.push(t);
-            }
-
-            else{
-
-              while(t.precedence < stack.top().precedence){
-                output += (stack.top().str+" ");
-                stack.pop();
-              }
-
-              if(t.precedence == stack.top().precedence){
-                output += (stack.top().str+" ");
-                stack.pop();
-                stack.push(t);
-              }else{
-                stack.push(t);
-              }
-
-            }
-          }
-
-
-        //let's deal with parenthesis
       }else if(t.parenthesis){
 
         //Whenever you come upon an open parenthesis, always put it on the stack
@@ -76,10 +43,45 @@ public class Converter{
           }
           //get rid of the "("
           stack.pop();
-
         }
 
-      }
+
+      //let's deal with parenthesis
+      }else if(t.operator){
+
+          //if the stack is empty
+          if(stack.isEmpty()){
+            stack.push(t);
+
+          }else{
+
+            //if there is an open parenthesis in the stack
+            if(stack.top().str.equals("(")){
+              stack.push(t);
+            }
+
+            else{
+
+              //keep putting stuffs into the output
+              while(t.precedence < stack.top().precedence){
+                output += (stack.top().str+" ");
+                stack.pop();
+              }
+
+              //until we find a same precedence operator
+              if(t.precedence == stack.top().precedence){
+                output += (stack.top().str+" ");
+                stack.pop();
+                stack.push(t);
+              }
+              //or lower operator
+              else{
+                stack.push(t);
+              }
+
+            }
+          }
+       }
 
     }
 
