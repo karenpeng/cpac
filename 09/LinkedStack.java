@@ -1,25 +1,25 @@
 //----------------------------------------------------------------------
-// ArrayListStack.java        by Dale/Joyce/Weems              Chapter 3
+// LinkedStack.java         by Dale/Joyce/Weems                Chapter 3
 //
-// Implements UnboundedStackInterface using an ArrayList to
-// hold the stack elements.
-//----------------------------------------------------------------------
+// Implements UnboundedStackInterface using a linked list
+// to hold the stack elements.
+//-----------------------------------------------------------------------
 
-import java.util.*;
-
-public class ArrayListStack<T> implements UnboundedStackInterface<T>
+public class LinkedStack<T> implements UnboundedStackInterface<T>
 {
-  protected ArrayList<T> stack;     // ArrayList that holds stack elements
+  protected LLNode<T> top;   // reference to the top of this stack
 
-  public ArrayListStack()
+  public LinkedStack()
   {
-    stack = new ArrayList<T>();
+    top = null;
   }
 
   public void push(T element)
   // Places element at the top of this stack.
   {
-    stack.add(element);
+    LLNode<T> newNode = new LLNode<T>(element);
+    newNode.setLink(top);
+    top = newNode;
   }
 
   public void pop()
@@ -28,7 +28,7 @@ public class ArrayListStack<T> implements UnboundedStackInterface<T>
   {
     if (!isEmpty())
     {
-      stack.remove(stack.size() - 1);
+      top = top.getLink();
     }
     else
       throw new StackUnderflowException("Pop attempted on an empty stack.");
@@ -38,20 +38,19 @@ public class ArrayListStack<T> implements UnboundedStackInterface<T>
   // Throws StackUnderflowException if this stack is empty,
   // otherwise returns top element from this stack.
   {
-    T topOfStack = null;
     if (!isEmpty())
-      topOfStack = stack.get(stack.size() - 1);
+      return top.getInfo();
     else
       throw new StackUnderflowException("Top attempted on an empty stack.");
-    return topOfStack;
   }
 
   public boolean isEmpty()
   // Returns true if this stack is empty, otherwise returns false.
   {
-    if (stack.size() == 0)
+    if (top == null)
       return true;
     else
       return false;
   }
 }
+

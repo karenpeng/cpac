@@ -49,8 +49,8 @@ public class Calculator{
 
     String[] expression = _expression.split(" ");
 
-    ArrayListStack<String>stack = new ArrayListStack<String>();
-    ArrayListStack<String>output = new ArrayListStack<String>();
+    LinkedStack<String>stack = new LinkedStack<String>();
+    LinkedStack<String>output = new LinkedStack<String>();
 
     //the left of the string is the top of the stack
     for(int i = expression.length - 1; i >= 0; i--){

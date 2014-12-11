@@ -7,7 +7,7 @@ public class Converter{
 
     ArrayList<String> infixExpression = new ArrayList<String>();
     ArrayList<Token> tokens = new ArrayList<Token>();
-    ArrayListStack<Token> stack = new ArrayListStack<Token>();
+    LinkedStack<Token> stack = new LinkedStack<Token>();
     String output = "";
 
     //format the input
