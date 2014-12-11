@@ -2,85 +2,83 @@ import java.util.ArrayList;
 
 public class Converter{
 
-  ArrayList<String> input = new ArrayList<String>();
-  ArrayList<Token> stack = new ArrayList<Token>();
-  ArrayList<Token> output = new ArrayList<Token>();
-
   //i think the stack goes here
-  public String toPostFix(ArrayList<String> infixExpression){
+  public String toPostFix(String input){
 
-    input = infixExpression;
+    ArrayList<String> infixExpression = new ArrayList<String>();
     ArrayList<Token> tokens = new ArrayList<Token>();
-    String postfixExpression = "";
+    ArrayListStack<Token> stack = new ArrayListStack<Token>();
+    String output = "";
 
+    infixExpression = ExpressionParser.parse(input);
+
+    //tokenize the infixexpressiong
     for(String s : infixExpression){
       tokens.add(new Token(s));
     }
 
     for(Token t : tokens){
 
-      System.out.println("");
-      System.out.println("dealing with " + t.str);
-      System.out.print("stack ");
-      for(Token tt : stack){
-        System.out.print(tt.str+" ");
-      }
-
-      System.out.println("");
-      System.out.print("output ");
-      for(Token ttt : output){
-        System.out.print(ttt.str+" ");
-      }
-      System.out.println("");
-
       //if it is a number, simply put it in the output
       if(t.operand){
-        output.add(t);
+        output += (t.str+" ");
 
       }else if(t.operator){
 
           //if the stack is empty
-          if(stack.size() == 0){
-            stack.add(t);
+          if(stack.isEmpty()){
+            stack.push(t);
 
           }else{
 
             //if there is an open parenthesis in the stack
-            Token onTopOfStack = stack.get(stack.size()-1);
-            if(onTopOfStack.str.equals("(")){
-              stack.add(t);
+            if(stack.top().str.equals("(")){
+              stack.push(t);
             }
 
-           //if operator on the stack has a lower precedence, append the one you are reading to the stack
-            else if(t.precedence > onTopOfStack.precedence){
-              stack.add(t);
-            }else{
+            else{
 
               //pop operators out of the stack and append to output,
               //until the operator at the top of the stack is of lower precedence than the token you are reading
-              for(int i = stack.size()-1; i >= 0; i-- ){
-                onTopOfStack = stack.get(i);
-                if(t.precedence < onTopOfStack.precedence){
-                  stack.remove(i);
-                  output.add(onTopOfStack);
-                  //stack.add(t);
-                  //break;
-                }else if(t.precedence == onTopOfStack.precedence){
-                  stack.remove(i);
-                  output.add(onTopOfStack);
-                  stack.add(t);
-                  //stack.add(onTopOfStack);
-                  break;
-                }else{
-                  stack.add(t);
-                  break;
-                }
+
+              //that's how i implement 'util', iterate it until you should stop
+
+              // for(int i = stack.stack.size()-1; i >= 0; i-- ){
+              //   Token onTopOfStack = stack.top();
+              //   if(t.precedence < onTopOfStack.precedence){
+              //     stack.pop();
+              //     output.add(onTopOfStack);
+              //     //stack.add(t);
+              //     //break;
+              //   }else if(t.precedence == onTopOfStack.precedence){
+              //     stack.pop();
+              //     output.add(onTopOfStack);
+              //     stack.push(t);
+              //     //stack.add(onTopOfStack);
+              //     break;
+              //   }else{
+              //     //if operator on the stack has a lower precedence,
+              //     //append the one you are reading to the stack
+              //     stack.push(t);
+              //     break;
+              //   }
+              // }
+
+              while(t.precedence < stack.top().precedence){
+                output += (stack.top().str+" ");
+                stack.pop();
+              }
+
+              if(t.precedence == stack.top().precedence){
+                output += (stack.top().str+" ");
+                stack.pop();
+                stack.push(t);
+              }else{
+                stack.push(t);
               }
 
             }
-
           }
-
 
 
         //let's deal with parenthesis
@@ -88,25 +86,31 @@ public class Converter{
 
         //Whenever you come upon an open parenthesis, always put it on the stack
         if(t.str.equals("(")){
-          stack.add(t);
+          stack.push(t);
         }
 
         //Whenever you come upon a closed parenthesis,
         //pop out all the operators on the stack and append them to output until you find the matching parenthesis.
         //Pop out the matching parenthesis and don't add either paren to the output
         //(remember: postfix doesn't have parenthesis!)
-        else if(t.str.equals(")")){
+        else{
 
-          for(int i = stack.size()-1; i >= 0; i-- ){
-            Token onTopOfStack = stack.get(i);
-            if(!onTopOfStack.str.equals("(")){
-              stack.remove(i);
-              output.add(onTopOfStack);
-            }else{
-              stack.remove(i);
-              break;
-            }
+          // for(int i = 0 ; i < stack.stack.size()-1; i++ ){
+          //   Token onTopOfStack = stack.top();
+          //   if(!onTopOfStack.str.equals("(")){
+          //     stack.pop();
+          //     output.add(onTopOfStack);
+          //   }else{
+          //     stack.pop();
+          //     break;
+          //   }
+          // }
+          while(!stack.top().str.equals("(")){
+            output += (stack.top().str+" ");
+            stack.pop();
           }
+          //get rid of the "("
+          stack.pop();
 
         }
 
@@ -114,20 +118,12 @@ public class Converter{
 
     }
 
-    if(stack.size() != 0){
-      for(int i = stack.size()-1; i >= 0; i-- ){
-        Token onTopOfStack = stack.get(i);
-        stack.remove(i);
-        output.add(onTopOfStack);
-      }
+    while(!stack.isEmpty()){
+        output += (stack.top().str+" ");
+        stack.pop();
     }
 
-    for(Token t : output){
-      postfixExpression += (t.str + " ");
-    }
-    System.out.println("postfixExpression "+ postfixExpression);
-
-    return postfixExpression;
+    return output;
   }
 
   public class Token{
