@@ -89,7 +89,7 @@ public class Calculator{
         result = operand1 - operand2;
       else
       if(operator.equals("^"))
-        result = (int)Math.pow(operand1, operand2);
+        result = Math.pow(operand1, operand2);
       else{
         throw new PostFixException("Illegal symbol: " + operator);
       }

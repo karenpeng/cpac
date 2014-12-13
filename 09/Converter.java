@@ -46,7 +46,7 @@ public class Converter{
         }
 
 
-      //let's deal with parenthesis
+      //let's deal with operators
       }else if(t.operator){
 
           //if the stack is empty
@@ -112,7 +112,10 @@ public class Converter{
         operand = true;
       }else if(c == '(' || c == ')'){
         parenthesis = true;
-      }else if(c == '*' || c == '/' || c == '^'){
+      }else if(c == '^'){
+        operator = true;
+        precedence = 3;
+      }else if(c == '*' || c == '/'){
         operator = true;
         precedence = 2;
       }else if( c == '+' || c == '-' ){
