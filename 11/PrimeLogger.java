@@ -70,7 +70,7 @@ public class PrimeLogger{
     int p = nn.getInfo();
     prime.enqueue(p);
 
-    while(p < Math.sqrt(n)){
+    while(nn.getLink()!= null){
 
 
       // while(p)
@@ -95,7 +95,7 @@ public class PrimeLogger{
 
       int num = 0;
 
-      for(LLNode<Integer> node = prime.front; node.getInfo() < Math.sqrt(p) && node.getLink()!= null; node = node.getLink()){
+      for(LLNode<Integer> node = prime.front; node.getInfo() < Math.sqrt(p); node = node.getLink()){
         if(p % node.getInfo() == 0){
           num ++;
           break;
@@ -104,12 +104,6 @@ public class PrimeLogger{
       if(num == 0){
         prime.enqueue(p);
       }
-      //}
-
-      printThings(prime);
-      System.out.println("");
-      // nn = nn.getLink();
-      // p = nn.getInfo();
 
     }
 
