@@ -18,7 +18,7 @@ public class LLHomeworkFunctions {
 		// TODO: Part of this assignment is to implement this correctly.
 			if(list1.value.equals(list2.value)){
 				//null is for address, so use '==' instead of equals
-				if(list1.value == null){
+				if(list1 == null){
 					return true;
 				}else{
 					equalLists(list1.next, list2.next);
@@ -48,7 +48,7 @@ public class LLHomeworkFunctions {
 	      // }
 
 	      //well, checking value
-	      if(list.value == null) return true;
+	      if(list == null) return true;
 
 	      for(T t: values){
 	      	if(t.equals(list.value){
@@ -59,6 +59,8 @@ public class LLHomeworkFunctions {
     		terminates(list.next);
 
     		//code below uses hashTable
+    		if(list == null) return true;
+
 
 	}
 }

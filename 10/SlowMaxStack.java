@@ -2,7 +2,7 @@ public class SlowMaxStack<T> implements MaxStack<T> {
 
 	private final Maximizer<T> maximizer;
 	private ListNode<T> top;
-	
+
 	public SlowMaxStack(Maximizer<T> maximizer) {
 		this.maximizer = maximizer;
 	}
@@ -25,13 +25,14 @@ public class SlowMaxStack<T> implements MaxStack<T> {
 	}
 
 	@Override
+	//the big O is n
 	public T getMaxSoFar() {
 		T currentMax = maximizer.getGlobalMin();
-		
+
 		for(ListNode<T> node = top; node != null; node = node.next) {
 			currentMax = maximizer.getMax(currentMax, node.value);
 		}
-		
+
 		return currentMax;
 	}
 
