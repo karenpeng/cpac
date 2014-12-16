@@ -150,7 +150,9 @@ public class GameOfLife{
   }
 
   public void checkTerminate(char[][] current, char[][] next){
-    if(current == next){
+
+    //omg, array is object in java, so we need to use euqauls!!!
+    if(current.equals(next)){
       System.out.println("The whole world is stuck, bye-bye.");
       System.exit(1);
     }
