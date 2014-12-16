@@ -72,25 +72,8 @@ public class PrimeLogger{
 
     while(nn.getLink()!= null){
 
-
-      // while(p)
-      // go through the queue of numbers, eliminating numbers divisible by p.
-      // for(LLNode<Integer> node = buffer.front; node.getInfo() < p; node = node.getLink()){
-
-      //   System.out.println("in side the loop:" + node.getInfo());
-
-      //   if(p % node.getInfo() == 0){
-      //     //buffer.dequeue(node);
-      //     System.out.println("get rid of "+p);
-      //     //prime.dequeue();
-      //     break;
-      //   }
-      // }
-
-      // if(prime.rear.getInfo() == 2){
-      //   prime.enqueue(3);
-      // }else{
       nn = nn.getLink();
+      //p starts from 3
       p = nn.getInfo();
 
       int num = 0;
