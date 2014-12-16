@@ -16,14 +16,17 @@ public class LLHomeworkFunctions {
 	//the big O for this is n
     public static <T> boolean equalLists(ListNode<T> list1, ListNode<T> list2) {
 		// TODO: Part of this assignment is to implement this correctly.
-			if(list1.value.equals(list2.value)){
-				//null is for address, so use '==' instead of equals
-				if(list1 == null){
-					return true;
-				}else{
-					equalLists(list1.next, list2.next);
-				}
-			}else return false;
+    if(list1 == null || list2 == null){
+      if(list1 == null && list2 == null){
+        return true;
+      }
+      return false;
+    }
+
+		if(list1.value.equals(list2.value)){
+			//null is for address, so use '==' instead of equals
+			equalLists(list1.next, list2.next);
+		}else return false;
 
 	}
 
@@ -38,29 +41,27 @@ public class LLHomeworkFunctions {
 	//the big O for this is n^2
 	ArrayList<T> values = new ArrayList<T>();
 	public static <T> boolean terminates(ListNode<T> list) {
-        // TODO: Part of this assignment is to implement this correctly.
+    // TODO: Part of this assignment is to implement this correctly.
 
-        // code below is never going to end, forget it
-       	//  if(list == null){
-       	//  	return true;
-	      // }else{
-	      // 	terminates(list.next);
-	      // }
+    // code below is never going to end, forget it
+   	//  if(list == null){
+   	//  	return true;
+    // }else{
+    // 	terminates(list.next);
+    // }
 
-	      //well, checking value
-	      if(list == null) return true;
+    //well, checking value
+    if(list == null) return true;
 
-	      for(T t: values){
-	      	if(t.equals(list.value){
-	      		return false;
-	      	}
-	      }
-    		values.add(list.value);
-    		terminates(list.next);
-
-    		//code below uses hashTable
-    		if(list == null) return true;
-
+    if(values.size() > 0){
+      for(T t: values){
+      	if(t.equals(list.value){
+      		return false;
+      	}
+      }
+    }
+  	values.add(list.value);
+  	terminates(list.next);
 
 	}
 }
