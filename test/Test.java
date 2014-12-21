@@ -6,6 +6,9 @@ public class Test{
   static int numRows = 10;
   public static void main(String args[]){
     //System.out.print(sum());
+    int [] myFirstArray = new int [ 10 ];
+    myFirstArray[100] = 45;
+
     pyramid(test());
     System.out.println(sum);
     int[] a = {
