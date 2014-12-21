@@ -21,7 +21,7 @@ public class MakeTree{
       {
 
         LinkedStack<Token> postfix = converter.toPostFix(line);
-        System.out.println("converted to postfix: "+postfix);
+        //System.out.println("converted to postfix: "+postfix);
         //double result = evaluate(postfix);
         make(postfix);
         //System.out.println("answer is: "+result);
@@ -50,6 +50,7 @@ public class MakeTree{
     LinkedStack<Token> reverse = new LinkedStack<Token>();
     LLNode expressionNode = expression.top;
     while(expressionNode != null){
+      Token wat = (Token)expressionNode.getInfo();
       reverse.push((Token)expressionNode.getInfo());
       expressionNode = expressionNode.getLink();
     }
@@ -76,10 +77,13 @@ public class MakeTree{
       n = n.getLink();
     }
 
-
+    System.out.println("");
     Tree test = new Tree();
     test.build(hold.top());
+    test.prefix();
     test.infix();
+    test.postfix();
+    System.out.println(test.evaluate());
 
   }
 

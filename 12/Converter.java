@@ -38,7 +38,7 @@ public class Converter{
         else{
 
           while(!stack.top().str.equals("(")){
-            output.push(t);
+            output.push(stack.top());
             stack.pop();
           }
           //get rid of the "("
@@ -64,13 +64,13 @@ public class Converter{
 
               //keep putting stuffs into the output
               while(t.precedence < stack.top().precedence){
-                output.push(t);
+                output.push(stack.top());
                 stack.pop();
               }
 
               //until we find a same precedence operator
               if(t.precedence == stack.top().precedence){
-                output.push(t);
+                output.push(stack.top());
                 stack.pop();
                 stack.push(t);
               }
